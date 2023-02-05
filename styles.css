@@ -1,0 +1,14 @@
+:root {
+    --grid-rows: 1;
+    --grid-cols: 1;
+}
+
+#canvas {
+    display: grid;
+    grid-template-rows: repeat(var(--grid-rows), 30px);
+    grid-template-columns: repeat(var(--grid-cols), 30px);
+}
+
+.grid-square {
+    border: 1px solid black;
+}

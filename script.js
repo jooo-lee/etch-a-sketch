@@ -8,6 +8,12 @@ function makeGrid(size) {
         gridSquare.classList.add("grid-square");
         canvas.appendChild(gridSquare);
     }
+    const grids = document.querySelectorAll(".grid-square");
+    grids.forEach(sq => sq.addEventListener("mouseover", changeColor));
 }
 
 makeGrid(16);
+
+function changeColor(e) {
+    e.target.style.backgroundColor = "red";
+}

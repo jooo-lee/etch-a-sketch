@@ -1,4 +1,9 @@
 const canvas = document.getElementById("canvas");
+const slider = document.getElementById("slider");
+
+slider.addEventListener("change", updateGridSize);
+
+makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
 function makeGrid(size) {
     canvas.style.setProperty("--grid-rows", size);
@@ -17,7 +22,7 @@ function makeGrid(size) {
     grids.forEach(sq => sq.addEventListener("mouseover", changeColor));
 }
 
-makeGrid(64);
+// ------------------------------ Below are some helper functions ------------------------------
 
 function changeColor(e) {
     e.target.style.backgroundColor = "red";
@@ -25,4 +30,15 @@ function changeColor(e) {
 
 function getGridSquareSize(size) {
     return 480 / size + "px";
+}
+
+function updateGridSize(e) {
+    removeAllChildNodes(canvas);
+    makeGrid(e.target.value);
+}
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }

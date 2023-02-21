@@ -18,6 +18,12 @@ header {
     margin-top: 45px;
 }
 
+#content {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}
+
 #header-text {
     margin: 15px 0px;
     font-size: 70px;

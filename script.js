@@ -1,9 +1,12 @@
 const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
+const clearBtn = document.getElementById("clear-btn");
+
+makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
 slider.addEventListener("change", updateGridSize);
 
-makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
+clearBtn.addEventListener("click", clearScreen);
 
 function makeGrid(size) {
     canvas.style.setProperty("--grid-rows", size);
@@ -34,11 +37,16 @@ function getGridSquareSize(size) {
 
 function updateGridSize(e) {
     removeAllChildNodes(canvas);
-    makeGrid(e.target.value);
+    makeGrid(slider.value);
 }
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+}
+
+function clearScreen() {
+    removeAllChildNodes(canvas);
+    makeGrid(slider.value);
 }

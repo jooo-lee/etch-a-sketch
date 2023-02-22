@@ -2,6 +2,10 @@ const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
 const clearBtn = document.getElementById("clear-btn");
 const eraserBtn = document.getElementById("eraser-btn");
+const blackBtn = document.getElementById("black-btn");
+
+slider.addEventListener("change", updateGridSize);
+clearBtn.addEventListener("click", clearCanvas); 
 
 makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
@@ -14,9 +18,8 @@ const penMode = {
     eraser: false
 };
 
-slider.addEventListener("change", updateGridSize);
-clearBtn.addEventListener("click", clearCanvas); 
-eraserBtn.addEventListener("click", selectPenMode);
+const penModeBtns = document.querySelectorAll(".pen-mode");
+penModeBtns.forEach(btn => btn.addEventListener("click", selectPenMode));
 
 function makeGrid(size) {
     canvas.style.setProperty("--grid-rows", size);
@@ -63,10 +66,9 @@ function clearCanvas() {
 }
 
 function selectPenMode(e) {
-    // Set all properties to false first
+    if (penMode[e.target.dataset.btnType]) return; // Desired pen mode already selected
     for (const mode in penMode) {
         penMode[mode] = false;
     }
-    // Then set desired penMode to true
     penMode[e.target.dataset.btnType] = true;
 }

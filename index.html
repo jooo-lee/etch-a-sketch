@@ -12,12 +12,14 @@
                 <p id="header-text">Etch-a-Sketch</p>
             </header>
             <div id="content">
-                <div id="content-left"></div>
+                <div id="content-left">
+                    <button id="black-btn" class="pen-mode" data-btn-type="black">Black</button>
+                </div>
                 <div id="canvas"></div>
                 <div id="content-right">
                     <button id="clear-btn">Clear</button>
                     <input type="range" min="4" max="100" value="32" id="slider">
-                    <button id="eraser-btn" data-btn-type="eraser">Eraser</button>
+                    <button id="eraser-btn" class="pen-mode" data-btn-type="eraser">Eraser</button>
                 </div>
             </div>
         </div>

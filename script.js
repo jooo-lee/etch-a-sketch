@@ -1,12 +1,22 @@
 const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
 const clearBtn = document.getElementById("clear-btn");
+const eraserBtn = document.getElementById("eraser-btn");
 
 makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
-slider.addEventListener("change", updateGridSize);
+// Use Javascript object to hold all states of pen
+// Have pen be in regular black state by default
+const penMode = {
+    black: true,
+    shading: false,
+    rainbow: false,
+    eraser: false
+};
 
-clearBtn.addEventListener("click", clearScreen);
+slider.addEventListener("change", updateGridSize);
+clearBtn.addEventListener("click", clearCanvas); 
+eraserBtn.addEventListener("click", selectPenMode);
 
 function makeGrid(size) {
     canvas.style.setProperty("--grid-rows", size);
@@ -25,10 +35,11 @@ function makeGrid(size) {
     grids.forEach(sq => sq.addEventListener("mouseover", changeColor));
 }
 
-// ------------------------------ Below are some helper functions ------------------------------
+// ------------------------------ Below are callback and helper functions ------------------------------
 
 function changeColor(e) {
-    e.target.style.backgroundColor = "red";
+    if (penMode["black"]) e.target.style.backgroundColor = "black";
+    else if (penMode["eraser"]) e.target.style.backgroundColor = "white";
 }
 
 function getGridSquareSize(size) {
@@ -46,7 +57,16 @@ function removeAllChildNodes(parent) {
     }
 }
 
-function clearScreen() {
+function clearCanvas() {
     removeAllChildNodes(canvas);
     makeGrid(slider.value);
+}
+
+function selectPenMode(e) {
+    // Set all properties to false first
+    for (const mode in penMode) {
+        penMode[mode] = false;
+    }
+    // Then set desired penMode to true
+    penMode[e.target.dataset.btnType] = true;
 }

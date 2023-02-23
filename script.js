@@ -98,12 +98,13 @@ function selectPenMode(e) {
 }
 
 function getRandomRGBA() {
-    let randomR = getRandomInt(0, 256);
-    let randomG = getRandomInt(0, 256);
-    let randomB = getRandomInt(0, 256);
-    return `rgba(${randomR}, ${randomG}, ${randomB}, 1)`;
+    let randomR = getRandomInt(0, 255);
+    let randomG = getRandomInt(0, 255);
+    let randomB = getRandomInt(0, 255);
+    let randomA = getRandomInt(3, 10) / 10;
+    return `rgba(${randomR}, ${randomG}, ${randomB}, ${randomA})`;
 }
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  }
+}

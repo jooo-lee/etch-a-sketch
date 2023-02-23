@@ -3,6 +3,7 @@ const slider = document.getElementById("slider");
 const clearBtn = document.getElementById("clear-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const blackBtn = document.getElementById("black-btn");
+const shadingBtn = document.getElementById("shading-btn");
 
 slider.addEventListener("change", updateGridSize);
 clearBtn.addEventListener("click", clearCanvas); 
@@ -41,8 +42,29 @@ function makeGrid(size) {
 // ------------------------------ Below are callback and helper functions ------------------------------
 
 function changeColor(e) {
-    if (penMode["black"]) e.target.style.backgroundColor = "black";
-    else if (penMode["eraser"]) e.target.style.backgroundColor = "white";
+    if (penMode["black"]) {
+        e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+    }
+    else if (penMode["eraser"]) {
+        e.target.style.backgroundColor = null;
+    }
+    else if (penMode["shading"]) {
+        if (!e.target.style.backgroundColor) {
+            e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        }
+        else {
+            let currColor = e.target.style.backgroundColor;
+            // https://stackoverflow.com/questions/48533565/change-css-rgba-background-colors-alpha-value-using-js
+            const parts = currColor.match(/[\d.]+/g); // Use RegEx to parse colour and alpha values into array
+            if (parts.length !== 4) {
+                return;
+            }
+            if (parseFloat(parts[3]) <= 0.9) {
+                parts[3] = parseFloat(parts[3]) + 0.1;
+            }
+            e.target.style.backgroundColor = `rgba(${parts.join(",")})`;
+        }
+    }
 }
 
 function getGridSquareSize(size) {
@@ -66,7 +88,9 @@ function clearCanvas() {
 }
 
 function selectPenMode(e) {
-    if (penMode[e.target.dataset.btnType]) return; // Desired pen mode already selected
+    if (penMode[e.target.dataset.btnType]) {
+        return; // Desired pen mode already selected
+    }
     for (const mode in penMode) {
         penMode[mode] = false;
     }

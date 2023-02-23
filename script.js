@@ -4,6 +4,7 @@ const clearBtn = document.getElementById("clear-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const blackBtn = document.getElementById("black-btn");
 const shadingBtn = document.getElementById("shading-btn");
+const rainbowBtn = document.getElementById("rainbow-btn");
 
 slider.addEventListener("change", updateGridSize);
 clearBtn.addEventListener("click", clearCanvas); 
@@ -44,15 +45,12 @@ function makeGrid(size) {
 function changeColor(e) {
     if (penMode["black"]) {
         e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
-    }
-    else if (penMode["eraser"]) {
+    } else if (penMode["eraser"]) {
         e.target.style.backgroundColor = null;
-    }
-    else if (penMode["shading"]) {
+    } else if (penMode["shading"]) {
         if (!e.target.style.backgroundColor) {
             e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-        }
-        else {
+        } else {
             let currColor = e.target.style.backgroundColor;
             // https://stackoverflow.com/questions/48533565/change-css-rgba-background-colors-alpha-value-using-js
             const parts = currColor.match(/[\d.]+/g); // Use RegEx to parse colour and alpha values into array
@@ -64,6 +62,8 @@ function changeColor(e) {
             }
             e.target.style.backgroundColor = `rgba(${parts.join(",")})`;
         }
+    } else if (penMode["rainbow"]) {
+        e.target.style.backgroundColor = getRandomRGBA();
     }
 }
 
@@ -96,3 +96,14 @@ function selectPenMode(e) {
     }
     penMode[e.target.dataset.btnType] = true;
 }
+
+function getRandomRGBA() {
+    let randomR = getRandomInt(0, 256);
+    let randomG = getRandomInt(0, 256);
+    let randomB = getRandomInt(0, 256);
+    return `rgba(${randomR}, ${randomG}, ${randomB}, 1)`;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+  }

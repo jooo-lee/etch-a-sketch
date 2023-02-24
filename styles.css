@@ -41,7 +41,3 @@ header {
     grid-template-columns: repeat(var(--grid-cols), var(--grid-square-size));
     border: 1px solid black;
 }
-
-.grid-square {
-    border: 0.1px solid black;
-}

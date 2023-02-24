@@ -5,9 +5,11 @@ const eraserBtn = document.getElementById("eraser-btn");
 const blackBtn = document.getElementById("black-btn");
 const shadingBtn = document.getElementById("shading-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
+const gridBtn = document.getElementById("grid-btn");
 
 slider.addEventListener("change", updateGridSize);
 clearBtn.addEventListener("click", clearCanvas); 
+gridBtn.addEventListener("click", toggleGrid);
 
 makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
@@ -19,6 +21,8 @@ const penMode = {
     rainbow: false,
     eraser: false
 };
+
+let gridOn = false;
 
 const penModeBtns = document.querySelectorAll(".pen-mode");
 penModeBtns.forEach(btn => btn.addEventListener("click", selectPenMode));
@@ -36,8 +40,8 @@ function makeGrid(size) {
         canvas.appendChild(gridSquare);
     }
 
-    const grids = document.querySelectorAll(".grid-square");
-    grids.forEach(sq => sq.addEventListener("mouseover", changeColor));
+    const gridSquares = document.querySelectorAll(".grid-square");
+    gridSquares.forEach(sq => sq.addEventListener("mouseover", changeColor));
 }
 
 // ------------------------------ Below are callback and helper functions ------------------------------
@@ -74,6 +78,9 @@ function getGridSquareSize(size) {
 function updateGridSize(e) {
     removeAllChildNodes(canvas);
     makeGrid(slider.value);
+    if (gridOn) {
+        drawGrid();
+    }
 }
 
 function removeAllChildNodes(parent) {
@@ -85,6 +92,9 @@ function removeAllChildNodes(parent) {
 function clearCanvas() {
     removeAllChildNodes(canvas);
     makeGrid(slider.value);
+    if (gridOn) {
+        drawGrid();
+    }
 }
 
 function selectPenMode(e) {
@@ -107,4 +117,19 @@ function getRandomRGBA() {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+function toggleGrid() {
+    if (gridOn) {
+        const gridSquares = document.querySelectorAll(".grid-square");
+        gridSquares.forEach(sq => sq.style.border = "none");
+    } else {
+        drawGrid();
+    }
+    gridOn = !gridOn;
+}
+
+function drawGrid() {
+    const gridSquares = document.querySelectorAll(".grid-square");
+    gridSquares.forEach(sq => sq.style.border = "0.1px solid black");
 }

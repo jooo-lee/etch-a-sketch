@@ -6,10 +6,12 @@ const blackBtn = document.getElementById("black-btn");
 const shadingBtn = document.getElementById("shading-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
 const gridBtn = document.getElementById("grid-btn");
+const colorPicker = document.getElementById("color-picker");
 
 slider.addEventListener("change", updateGridSize);
 clearBtn.addEventListener("click", clearCanvas); 
 gridBtn.addEventListener("click", toggleGrid);
+colorPicker.addEventListener("change", chooseColor);
 
 makeGrid(32); // Set grid to have a default size of 32. Matches default slider value
 
@@ -18,11 +20,13 @@ makeGrid(32); // Set grid to have a default size of 32. Matches default slider v
 const penMode = {
     black: true,
     shading: false,
+    colorPicker: false,
     rainbow: false,
     eraser: false
 };
 
 let gridOn = false;
+let pickedColor;
 
 const penModeBtns = document.querySelectorAll(".pen-mode");
 penModeBtns.forEach(btn => btn.addEventListener("click", selectPenMode));
@@ -68,6 +72,8 @@ function changeColor(e) {
         }
     } else if (penMode["rainbow"]) {
         e.target.style.backgroundColor = getRandomRGBA();
+    } else if (penMode["colorPicker"]) {
+        e.target.style.backgroundColor = pickedColor;
     }
 }
 
@@ -132,4 +138,8 @@ function toggleGrid() {
 function drawGrid() {
     const gridSquares = document.querySelectorAll(".grid-square");
     gridSquares.forEach(sq => sq.style.border = "0.1px solid black");
+}
+
+function chooseColor(e) {
+    pickedColor = e.target.value;
 }

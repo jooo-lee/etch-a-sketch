@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 html, body {
     height: 100%;
     margin: 0;
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(224, 199, 222);
 }
 
 #container {
@@ -36,8 +37,29 @@ header {
 }
 
 #canvas {
+    background-color: white;
     display: grid;
     grid-template-rows: repeat(var(--grid-rows), var(--grid-square-size));
     grid-template-columns: repeat(var(--grid-cols), var(--grid-square-size));
-    border: 1px solid black;
+    border: 5px solid rgb(55, 55, 55);
+    border-radius: 5px;
+}
+
+button {
+    color: white;
+    background-color: rgb(99, 45, 91);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 10px 50px;
+    border: none;
+    border-radius: 20px;
+}
+
+#content-left, #content-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    font-size: 18px;
 }

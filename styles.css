@@ -17,6 +17,7 @@ html, body {
 
 header {
     margin-top: 45px;
+    text-decoration: underline dotted;
 }
 
 #content {
@@ -60,9 +61,10 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:not(.btnToggled):hover {
     background-color: rgb(77, 34, 70);
     scale: 1.05;
+    box-shadow: 0px 0px 20px rgb(255, 255, 255);
 }
 
 #content-left, #content-right {
@@ -72,4 +74,14 @@ button:hover {
     gap: 20px;
     align-items: center;
     font-size: 18px;
+}
+
+.btnToggled {
+    background-color: white;
+    color: black;
+}
+
+.btnToggled:hover {
+    scale: 1.05;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
 }

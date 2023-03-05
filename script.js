@@ -29,6 +29,7 @@ let pickedColor = "rgba(0, 0, 0, 1)";
 
 const penModeBtns = document.querySelectorAll(".pen-mode");
 penModeBtns.forEach(btn => btn.addEventListener("click", selectPenMode));
+penBtn.classList.add("btnToggled");
 
 function makeGrid(size) {
     canvas.style.setProperty("--grid-rows", size);
@@ -109,9 +110,13 @@ function selectPenMode(e) {
     }
     penMode[e.target.dataset.btnType] = true;
 
-    // disable all "toggled" CSS for penMode buttons
-    // if penMode is not colorPicker
-    // then change the respective button's CSS to show that it is toggled
+    penModeBtns.forEach(btn => btn.classList.remove("btnToggled"));
+
+    if (e.target.id === "color-picker") {
+        penBtn.classList.add("btnToggled");
+        return;
+    }
+    e.target.classList.add("btnToggled");
 }
 
 function getRandomRGBA() {
@@ -130,8 +135,10 @@ function toggleGrid() {
     if (gridOn) {
         const gridSquares = document.querySelectorAll(".grid-square");
         gridSquares.forEach(sq => sq.style.border = "none");
+        gridBtn.classList.remove("btnToggled");
     } else {
         drawGrid();
+        gridBtn.classList.add("btnToggled");
     }
     gridOn = !gridOn;
 }

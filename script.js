@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const slider = document.getElementById("slider");
 const clearBtn = document.getElementById("clear-btn");
 const eraserBtn = document.getElementById("eraser-btn");
-const blackBtn = document.getElementById("black-btn");
+const penBtn = document.getElementById("pen-btn");
 const shadingBtn = document.getElementById("shading-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
 const gridBtn = document.getElementById("grid-btn");
@@ -18,15 +18,14 @@ makeGrid(32); // Set grid to have a default size of 32. Matches default slider v
 // Use Javascript object to hold all states of pen
 // Have pen be in regular black state by default
 const penMode = {
-    black: true,
+    pen: true,
     shading: false,
-    colorPicker: false,
     rainbow: false,
     eraser: false
 };
 
 let gridOn = false;
-let pickedColor;
+let pickedColor = "rgba(0, 0, 0, 1)";
 
 const penModeBtns = document.querySelectorAll(".pen-mode");
 penModeBtns.forEach(btn => btn.addEventListener("click", selectPenMode));
@@ -51,8 +50,8 @@ function makeGrid(size) {
 // ------------------------------ Below are callback and helper functions ------------------------------
 
 function changeColor(e) {
-    if (penMode["black"]) {
-        e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
+    if (penMode["pen"]) {
+        e.target.style.backgroundColor = pickedColor;
     } else if (penMode["eraser"]) {
         e.target.style.backgroundColor = null;
     } else if (penMode["shading"]) {
@@ -72,9 +71,7 @@ function changeColor(e) {
         }
     } else if (penMode["rainbow"]) {
         e.target.style.backgroundColor = getRandomRGBA();
-    } else if (penMode["colorPicker"]) {
-        e.target.style.backgroundColor = pickedColor;
-    }
+    } 
 }
 
 function getGridSquareSize(size) {
@@ -111,6 +108,10 @@ function selectPenMode(e) {
         penMode[mode] = false;
     }
     penMode[e.target.dataset.btnType] = true;
+
+    // disable all "toggled" CSS for penMode buttons
+    // if penMode is not colorPicker
+    // then change the respective button's CSS to show that it is toggled
 }
 
 function getRandomRGBA() {

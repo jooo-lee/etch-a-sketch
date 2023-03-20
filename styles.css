@@ -112,6 +112,7 @@ button:not(.btnToggled):hover {
     border-radius: 5px;
 }
 
+/* Slider handle */
 #slider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;

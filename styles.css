@@ -17,6 +17,7 @@ html, body {
 
 header {
     margin-top: 45px;
+    -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
 }
 
@@ -59,12 +60,14 @@ button {
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    transition: .3s;
 }
 
 button:not(.btnToggled):hover {
     background-color: rgb(77, 34, 70);
     scale: 1.05;
     box-shadow: 0px 0px 20px rgb(255, 255, 255);
+    transition: .3s;
 }
 
 #content-left, #content-right {
@@ -79,9 +82,41 @@ button:not(.btnToggled):hover {
 .btnToggled {
     background-color: white;
     color: black;
+    transition: .3s;
 }
 
 .btnToggled:hover {
     scale: 1.05;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
+    transition: .3s;
+}
+
+#color-picker {
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+#slider-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Slider itself */
+#slider {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    cursor: pointer;
 }

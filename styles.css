@@ -91,6 +91,12 @@ button:not(.btnToggled):hover {
     transition: .3s;
 }
 
+#color-picker-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 #color-picker {
     cursor: pointer;
     border: 2px solid black;
@@ -101,6 +107,7 @@ button:not(.btnToggled):hover {
 #slider-container {
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 
 /* Slider itself */
